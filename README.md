@@ -1,5 +1,5 @@
 # 糊涂蛋uni的歌单
-项目网页：uni.bbvup.live
+项目网页：[https://uni.bbvup.live/](https://uni.bbvup.live/)
 
 ## 部署使用
 
@@ -78,6 +78,7 @@ Next.JS 自动生成的"out"文件夹可直接用于部署静态网页
 ## 修改相关
 
 修改自项目：
+
 [song-list-of-nanakaie](https://github.com/alan314m/song-list-of-nanakaie)
 
 [vup-song-list](https://github.com/Akegarasu/vup-song-list)
