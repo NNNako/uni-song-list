@@ -1,5 +1,4 @@
 # 糊涂蛋uni的歌单
-项目网页：[https://uni.bbvup.live/](https://uni.bbvup.live/)
 
 关注糊涂蛋uni喵，关注糊涂蛋uni谢谢喵
 
