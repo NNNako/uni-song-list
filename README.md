@@ -72,8 +72,13 @@ Next.JS 自动生成的"out"文件夹可直接用于部署静态网页
 
 ### 鼠标指针
 
-鼠标指针：资源目录 - `./assets/cursor/` 
-配置： config - Cursor  / 各个 styles 中的相关样式
+鼠标指针：
+
+资源目录 - `./assets/cursor/` 
+
+配置： config - Cursor  
+
+各个 styles 中的相关样式
 
 ## 修改相关
 
