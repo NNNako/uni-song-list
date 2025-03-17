@@ -24,7 +24,7 @@ const include = (text, searchBox, usePinyin = false) => {
 		const initials = pinyin(chineseText, { pattern: 'first', toneType: 'none', type: 'string' }).toLowerCase();
 		initials = initials.replace(/\s+/g, '');
 
-    if (initials.includes(lowerSearchBox)) {
+    if (initials.startsWith(lowerSearchBox)) {
       return true;
     }
   }
