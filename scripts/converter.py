@@ -35,15 +35,15 @@ def parseSonglist():
     for index, row in song_df.iterrows():
         song_data = {
             "index": index,
-            "song_name": row.iloc[0],
-            "artist": row.iloc[1],
-            "language": row.iloc[2],
-            "remarks": row.iloc[3],
-            "genre": row.iloc[4],
+            "song_name": str(row.iloc[0]),
+            "artist": str(row.iloc[1]),
+            "language": str(row.iloc[2]),
+            "remarks": str(row.iloc[3]),
+            "genre": str(row.iloc[4]),
             "sticky_top": row.iloc[5],
             "paid": row.iloc[6],
-            "BVID": row.iloc[7],
-            "commandStr": row.iloc[8],
+            "BVID": str(row.iloc[7]),
+            "commandStr": str(row.iloc[8]),
         }
 
         if row.iloc[5] == 1:

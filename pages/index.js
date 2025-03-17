@@ -16,8 +16,8 @@ import SongListFilter from '../components/songList/SongListFilter.component';
 import PcSongListTable from '../components/songList/PcSongListTable.component';
 import MobileSongListTable from '../components/songList/MobileSongListTable.component';
 import imageLoader from '../utils/ImageLoader';
-import * as utils from '../utils/utils';
 import { config } from '../config/constants';
+import * as utils from '../utils/utils';
 
 const MusicNotes = dynamic(() => import('../components/MusicNotes.component'), {
   ssr: false,
@@ -109,10 +109,10 @@ export default function Home() {
   // 歌曲过滤
   const filteredSongList = MusicList.filter(
     (song) =>
-      (utils.include(song.song_name, searchBox) ||
-      utils.include(song.language, searchBox) ||
-      utils.include(song.remarks, searchBox) ||
-      utils.include(song.artist, searchBox)) &&
+      (utils.include(song.song_name, searchBox, true) ||
+      utils.include(song.artist, searchBox, true) ||
+      utils.include(song.remarks, searchBox, false) ||
+      utils.include(song.language, searchBox, false)) &&
       (categorySelection.lang === "其他语言"
         ? !config.Mainlang.includes(song.language) && song.language
         : categorySelection.lang
@@ -130,8 +130,8 @@ export default function Home() {
     if (sortConfig.key && sortConfig.direction) {
       sortableList.sort((a, b) => {
         console.log(a[sortConfig.key])
-        const aValue = a[sortConfig.key] ? a[sortConfig.key].toString().toLowerCase() : '';
-        const bValue = b[sortConfig.key] ? b[sortConfig.key].toString().toLowerCase() : '';
+        const aValue = a[sortConfig.key] ? a[sortConfig.key].toLowerCase() : '';
+        const bValue = b[sortConfig.key] ? b[sortConfig.key].toLowerCase() : '';
         if (aValue < bValue) return sortConfig.direction === 'asc' ? -1 : 1;
         if (aValue > bValue) return sortConfig.direction === 'asc' ? 1 : -1;
         return 0;
