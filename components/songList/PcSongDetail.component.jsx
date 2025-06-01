@@ -87,20 +87,30 @@ const PcSongDetail = ({ filteredSongList, handleClickToCopy, showBiliPlayer, isP
         const icon = paidIcons[paid] || paidIcons.default;
         const storageKey = `${song_name}+${artist}`;
         const isLiked = likedStates[storageKey] || false;
+        const isNewSubmit = BVID.includes('https')
 
         return (
           <tr
-            className={`${sticky_top ? styles.songRowTop : paid ? styles.songRowPaid : styles.songRow} ${ !isPerformanceMode ? styles.songRowFadeIn : ''}`}
+            className={`${sticky_top ? styles.songRowTop : isNewSubmit ? styles.songRowNewSubmit : paid ? styles.songRowPaid : styles.songRow} ${ !isPerformanceMode ? styles.songRowFadeIn : ''}`}
             key={index}
             onClick={() => handleClickToCopy(song)}
           >
-            {/* 图标列 */}
+            {/* 付费、新投稿、置顶图标 */}
             <td className={styles.tableIconTd} style={{ textAlign: 'left' }}>
-              {sticky_top === 1 && (
+              {sticky_top != 0 && (
                 <Icon
                   src="/assets/icon/new.png"
                   alt="新增"
                   title="新增曲目"
+                  className={styles.tableIcons}
+                  style={{ marginLeft: '10px', transform: 'translateY(-0.05em)', opacity: 0.7 }}
+                />
+              )}
+              {isNewSubmit && (
+                <Icon
+                  src="/assets/icon/newSubmit.png"
+                  alt="投稿"
+                  title="新增投稿"
                   className={styles.tableIcons}
                   style={{ marginLeft: '10px', transform: 'translateY(-0.05em)', opacity: 0.7 }}
                 />
@@ -131,7 +141,7 @@ const PcSongDetail = ({ filteredSongList, handleClickToCopy, showBiliPlayer, isP
                 style={{ 
                   border: 'none', 
                   background: 'none',
-                  cursor: 'url("./assets/cursor/pointer.png"), pointer',
+                  cursor: 'url("./assets/cursor/normal.png"), normal',
                 }}
               >
                 <Icon

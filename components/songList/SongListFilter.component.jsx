@@ -3,7 +3,7 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import GenreBtn from "../../components/GenreBtn.component";
 import { config } from "../../config/constants";
 
-const { LanguageCategories: languageCategories, RemarkCategories: remarkCategories } = config;
+const { LanguageCategories: languageCategories} = config;
 
 const isActive = (selected, except) => 
   selected === except ? styles.customCategoryButtonActive : styles.customCategoryButton;
@@ -14,7 +14,6 @@ const switchState = (setter, selected, except) =>
 export default function SongListFilter({
   categorySelection,
   setLanguageState,
-  setRemarkState,
   setPaidState,
   setgenreState,
   favoriteSelection,
@@ -46,19 +45,6 @@ export default function SongListFilter({
                   onClick={() => switchState(setLanguageState, categorySelection.lang, language)}
                 >
                   {language}
-                </Button>
-              </div>
-            </Col>
-          ))}
-
-          {remarkCategories.map((remark) => (
-            <Col xs={6} md={3} key={remark}>
-              <div className="d-grid">
-                <Button
-                  className={isActive(categorySelection.remark, remark)}
-                  onClick={() => switchState(setRemarkState, categorySelection.remark, remark)}
-                >
-                  {remark}
                 </Button>
               </div>
             </Col>

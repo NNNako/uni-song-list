@@ -14,26 +14,48 @@ const include = (text, searchBox, usePinyin = false) => {
 
   if (usePinyin) {
     const pinyinText = pinyin(text, { toneType: 'none', type: 'string' }).toLowerCase();
-		pinyinText = pinyinText.replace(/\s+/g, '');
+    const pinyinTextWithoutSpaces = pinyinText.replace(/\s+/g, '');
 
-    if (pinyinText.includes(lowerSearchBox)) {
+    if (pinyinTextWithoutSpaces.includes(lowerSearchBox)) {
       return true;
     }
 
-		const chineseText = text.replace(/[^\u4e00-\u9fa5]/g, '');
-		const initials = pinyin(chineseText, { pattern: 'first', toneType: 'none', type: 'string' }).toLowerCase();
-		initials = initials.replace(/\s+/g, '');
+    const chineseText = text.replace(/[^\u4e00-\u9fa5]/g, '');
+    const initials = pinyin(chineseText, { pattern: 'first', toneType: 'none', type: 'string' }).toLowerCase();
+    const initialsWithoutSpaces = initials.replace(/\s+/g, '');
 
-    if (initials.startsWith(lowerSearchBox)) {
+    if (initialsWithoutSpaces.startsWith(lowerSearchBox)) {
       return true;
     }
+
+    const chinesePart = lowerSearchBox.replace(/[^\u4e00-\u9fa5]/g, '');
+    const pinyinPart = lowerSearchBox.replace(/[\u4e00-\u9fa5]/g, '');
+
+    if (chinesePart && !lowerText.includes(chinesePart)) {
+      return false;
+    }
+
+    if (pinyinPart && !pinyinTextWithoutSpaces.includes(pinyinPart)) {
+      return false;
+    }
+
+    if (chinesePart && pinyinPart) {
+      const chinesePinyin = pinyin(chinesePart, { toneType: 'none', type: 'string' }).toLowerCase();
+      const chinesePinyinWithoutSpaces = chinesePinyin.replace(/\s+/g, '');
+
+      if (!pinyinTextWithoutSpaces.includes(chinesePinyinWithoutSpaces + pinyinPart)) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   return false;
-}
+};
 
 const getCursor = () => {
-  return config.Cursor ? 'url("./assets/cursor/pointer.png"), pointer' : ''
-}
+  return config.Cursor ? 'url("./assets/cursor/pointer.png"), pointer' : '';
+};
 
 module.exports = { include, getCursor };

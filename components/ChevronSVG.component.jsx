@@ -7,6 +7,9 @@ export default function ChevronSVG() {
       fill="currentColor"
       className="bi bi-chevron-right"
       viewBox="0 0 20 20"
+      style={{
+        marginTop:'1.5px',
+      }}
     >
       <path
         fillRule="evenodd"

@@ -18,7 +18,11 @@ export default function BannerIntro({}) {
             link={btn.link}
             image={btn.image}
             name={btn.name}
-            style={{ border: "2px solid #1D0C26", width: "100%" }}
+            style={{ 
+              border: "2px solid #1D0C26", 
+              width: "100%", 
+              cursor: 'url("./assets/cursor/normal.png"), normal',
+            }}
             key={btn.link}
           ></BannerButton>
         );

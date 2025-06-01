@@ -132,7 +132,13 @@
   transition: background-color 0.25s ease;
   background-color: rgba(229, 106, 84, 0.1);
   border-color:rgb(0 0 0 / 12%);
-  
+}
+
+.songRowNewSubmit {
+  cursor: url("/assets/cursor/pointer.png"), pointer;
+  transition: background-color 0.25s ease;
+  background-color: rgba(227, 177, 103, 0.1);
+  border-color:rgb(0 0 0 / 12%);
 }
 
 .songRowFadeIn {
@@ -142,6 +148,7 @@
 
 .songRow:hover,
 .songRowTop:hover,
+.songRowNewSubmit:hover,
 .songRowPaid:hover {
   background-color: #cfeba5;
 }
@@ -186,6 +193,18 @@
   border: 0px !important;
 }
 
+.RandomSongButton {
+  color: #1d0c26;
+  border-radius: 1rem;
+  border: none;
+  margin-top: 12px;
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: url("/assets/cursor/pointer.png"), pointer;
+}
+
+.RandomSongButton:active {
+  --bs-btn-padding-y: 0.33rem !important
+}
 
 .customRandomButton {
   color: #1d0c26;
@@ -196,7 +215,17 @@
   cursor: url("/assets/cursor/pointer.png"), pointer;
 }
 
+.customRandomButton:active {
+  border: 2px solid rgba(29, 12, 38, 0.2) !important;
+  --bs-btn-padding-y: 0.375rem !important
+}
+
+
 @media (max-width: 768px) {
+  .RandomSongButton{
+    border-radius: 0.5rem;
+  }
+
   .customRandomButton {
     border-radius: 0.5rem;
   }
@@ -206,6 +235,7 @@
   }
 }
 
+.RandomSongButton:focus,
 .customRandomButton:focus,
 .customCategoryButton:focus,
 .GenreBtn>button:focus {
@@ -215,6 +245,7 @@
   cursor: url("/assets/cursor/pointer.png"), pointer;
 }
 
+.RandomSongButton:hover,
 .customRandomButton:hover,
 .customCategoryButton:hover,
 .GenreBtn>button:hover {
@@ -224,6 +255,7 @@
 }
 
 @media (max-width: 768px) {
+  .RandomSongButton:hover,
   .customRandomButton:hover,
   .customCategoryButton:hover,
   .GenreBtn>button:hover { 
@@ -567,6 +599,10 @@ cursor: url("/assets/cursor/pointer.png"), pointer;
   background-color: rgba(255, 255, 255, 0.5);
 }
 
+.songButtonNewSubmit {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
 .songButtonTop {
   background-color: rgba(255, 255, 255, 0.5);
 }
@@ -576,6 +612,7 @@ cursor: url("/assets/cursor/pointer.png"), pointer;
   flex-direction: column;
   align-items: flex-start;
   min-height: 60px;
+  width: 100%;
 }
 
 .songInfo {
@@ -602,8 +639,19 @@ cursor: url("/assets/cursor/pointer.png"), pointer;
   background-color: rgba(229, 106, 84, 0.7);
 }
 
+.songLine.isNewSubmit {
+  background-color: rgba(16, 134, 41, 0.35);
+}
+
 .songLine.default {
   background-color: #50b3e5b3;
+}
+
+.songText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 350px;
 }
 
 .tagsContainer {

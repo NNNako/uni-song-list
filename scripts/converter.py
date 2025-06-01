@@ -40,16 +40,18 @@ def parseSonglist():
             "language": str(row.iloc[2]),
             "remarks": str(row.iloc[3]),
             "genre": str(row.iloc[4]),
-            "sticky_top": row.iloc[5],
+            "sticky_top": float(row.iloc[5]) if str(row.iloc[5]).strip() != "" else 0,
             "paid": row.iloc[6],
             "BVID": str(row.iloc[7]),
             "commandStr": str(row.iloc[8]),
         }
 
-        if row.iloc[5] == 1:
-            song_list.insert(0,song_data)
-        else:
-            song_list.append(song_data)
+        song_list.append(song_data)
+        
+    song_list.sort(key=lambda x: (
+        -x["sticky_top"],
+        0 if "https" in x["BVID"].lower() else 1
+    ))
 
 if __name__ == '__main__':
     updateSongList()

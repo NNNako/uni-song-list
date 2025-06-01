@@ -47,6 +47,7 @@ config = {
 
   UpdateDate: "" // 更新日期 Footer
   ICP: "" // ICP备案号 Footer
+  beian: "" // 公安备案号 Footer
 };
 
 ```

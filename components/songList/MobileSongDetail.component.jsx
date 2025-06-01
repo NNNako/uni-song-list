@@ -74,23 +74,26 @@ const MobileSongDetail = ({ filteredSongList, handleClickToCopy, isPerformanceMo
   return (
     <>
       {visibleSongs.map((song) => {
-        const { index, paid, sticky_top, song_name, artist, language, genre } = song;
+        const { index, paid, sticky_top, song_name, BVID, artist, language, genre } = song;
         const icon = paidIcons[paid] || paidIcons.default;
         const storageKey = `${song_name}+${artist}`;
         const isLiked = likedStates[storageKey] || false;
         const isActive = activeButton === storageKey;
+        const isNewSubmit = BVID.includes('https')
 
         return (
           <Button
             key={index}
-            className={`${styles.songButton} ${paid ? styles.songButtonPaid : ''} ${sticky_top ? styles.songButtonTop : ''} ${isActive ? styles.songButtonActive : ''} ${ !isPerformanceMode ? styles.songRowFadeIn : ''}`}
+            className={`${styles.songButton} ${paid ? styles.songButtonPaid : ''} ${isNewSubmit ? styles.songButtonNewSubmit : ''} ${sticky_top ? styles.songButtonTop : ''} ${isActive ? styles.songButtonActive : ''} ${ !isPerformanceMode ? styles.songRowFadeIn : ''}`}
             onClick={() => handleClickToCopy(song)}
           >
             {/* 歌曲信息 */}
             <div className={styles.songButtonContent}>
               <div className={styles.songInfo}>
-                <span className={`${styles.songLine} ${sticky_top ? styles.stickytop : paid ? styles.paid : styles.default}`}></span>
-                {song_name} - {artist.replace(/\//g, ' / ')}
+                <span className={`${styles.songLine} ${sticky_top ? styles.stickytop : isNewSubmit ? styles.isNewSubmit : paid ? styles.paid : styles.default}`}></span>
+                <span className={styles.songText}>
+                  {song_name} - {artist.replace(/\//g, ' / ')}
+                </span>
               </div>
               <div className={styles.tagsContainer}>
                 {language && <div className={`${styles.tag} ${styles.language}`}>{language}</div>}
@@ -109,7 +112,7 @@ const MobileSongDetail = ({ filteredSongList, handleClickToCopy, isPerformanceMo
               style={{ 
                 border: 'none', 
                 background: 'none',
-                cursor: 'url("./assets/cursor/pointer.png"), pointer',
+                cursor: 'url("./assets/cursor/normal.png"), normal',
                 position: 'absolute',
                 top: '0',
                 right: '0',
@@ -123,29 +126,36 @@ const MobileSongDetail = ({ filteredSongList, handleClickToCopy, isPerformanceMo
               />
             </div>
 
-            {/* 付费或置顶图标 */}
-            {(paid || sticky_top) && (
-              <div className={styles.iconContainer}>
-                {sticky_top === 1 && (
-                  <img
-                    src="/assets/icon/new.png"
-                    alt="新增"
-                    className={styles.tableIcons}
-                    title="新增曲目"
-                    style={{ marginBottom: '1px', opacity: 0.7 }}
-                  />
-                )}
-                {paid && (
-                  <img
-                    src={icon.src}
-                    alt={icon.alt}
-                    className={styles.tableIcons}
-                    title={icon.title}
-                    style={{ marginBottom: '1px', opacity: 0.7 }}
-                  />
-                )}
-              </div>
-            )}
+            {/* 付费、新投稿、置顶图标 */}
+            <div className={styles.iconContainer}>
+              {sticky_top != 0 && (
+                <img
+                  src="/assets/icon/new.png"
+                  alt="新增"
+                  className={styles.tableIcons}
+                  title="新增曲目"
+                  style={{ marginBottom: '1px', opacity: 0.7 }}
+                />
+              )}
+              {isNewSubmit && (
+                <img
+                  src="/assets/icon/newSubmit.png"
+                  alt="投稿"
+                  title="新增投稿"
+                  className={styles.tableIcons}
+                 style={{ marginBottom: '1px', opacity: 0.7 }}
+                />
+              )}
+              {paid && (
+                <img
+                  src={icon.src}
+                  alt={icon.alt}
+                  className={styles.tableIcons}
+                  title={icon.title}
+                  style={{ marginBottom: '1px', opacity: 0.7 }}
+                />
+              )}
+            </div>
           </Button>
         );
       })}

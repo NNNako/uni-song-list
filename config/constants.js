@@ -11,7 +11,6 @@ let config = {
 
     Mainlang : ["国语", "粤语", "日语", "英语"],
     LanguageCategories: ["国语", "粤语", "日语", "英语", "其他语言"],
-    RemarkCategories: [],
 
     BannerTitle: "",
     BannerContent: [
@@ -30,6 +29,7 @@ let config = {
 
     UpdateDate: "2025/3/14",
     ICP: "",
+    beian: "",
 }
 
 

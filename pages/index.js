@@ -28,7 +28,6 @@ export default function Home() {
     lang: '',
     genre: '',
     paid: false,
-    remark: '',
   });
   const [favoriteSelection, setFavoriteSelection] = useState(false);
   const [searchBox, setSearchBox] = useState('');
@@ -119,7 +118,6 @@ export default function Home() {
         ? song.language?.includes(categorySelection.lang)
         : true) &&
       (categorySelection.genre ? song.genre?.split('/').includes(categorySelection.genre) : true) &&
-      (categorySelection.remark ? song.remarks?.toLowerCase().includes(categorySelection.remark) : true) &&
       (categorySelection.paid ? song.paid === 1 : true) &&
       (!favoriteSelection || localStorage.getItem(`${song.song_name}+${song.artist}`) === 'true')
   );
@@ -180,30 +178,24 @@ export default function Home() {
 
   // 语言过滤
   const setLanguageState = (lang) => {
-    setCategorySelection({ lang, genre: '', paid: false, remark: '' });
+    setCategorySelection({ lang, genre: '', paid: false});
     setFavoriteSelection(false);
   };
 
   // 曲风过滤
   const setgenreState = (genre) => {
-    setCategorySelection({ lang: '', genre, paid: false, remark: '' });
-    setFavoriteSelection(false);
-  };
-
-  // 备注过滤
-  const setRemarkState = (remark) => {
-    setCategorySelection({ lang: '', genre: '', paid: false, remark });
+    setCategorySelection({ lang: '', genre, paid: false});
     setFavoriteSelection(false);
   };
 
   // 付费过滤
   const setPaidState = (paid) => {
-    setCategorySelection({ lang: '', genre: '', paid, remark: '' });
+    setCategorySelection({ lang: '', genre: '', paid});
     setFavoriteSelection(false);
   };
 
   const setFavorState = (state) => {
-    setCategorySelection({ lang: '', genre: '', paid: false, remark: '' });
+    setCategorySelection({ lang: '', genre: '', paid: false});
     setFavoriteSelection(state);
   };
 
@@ -225,11 +217,15 @@ export default function Home() {
     });
   };
 
-  // 显示 B 站播放器
+  // 显示 B 站播放器 OR 直接打开对应网页
   const showBiliPlayer = (song) => {
-    setBVID(song.BVID);
-    setPlayerModalShow(true);
-    setPlayerModalSongName(song.song_name);
+    if (song.BVID.includes('https')) {
+      window.open(song.BVID, '_blank');
+    } else {
+      setBVID(song.BVID);
+      setPlayerModalShow(true);
+      setPlayerModalSongName(song.song_name);
+    }
   };
 
   // 自我介绍 off canvas 开关
@@ -261,11 +257,11 @@ export default function Home() {
             <Image
               loader={imageLoader}
               src="assets/images/self_intro.webp"
-              alt="打开自我介绍"
+              alt="打开相关链接"
               width={50}
               height={50}
             />
-            <b><i>自我介绍</i></b>
+            <b><i>相关链接</i></b>
           </div>
         </div>
       </div>
@@ -314,7 +310,6 @@ export default function Home() {
               <SongListFilter
                 categorySelection={categorySelection}
                 setLanguageState={setLanguageState}
-                setRemarkState={setRemarkState}
                 setPaidState={setPaidState}
                 setgenreState={setgenreState}
                 favoriteSelection={favoriteSelection}
@@ -336,7 +331,7 @@ export default function Home() {
               <div className="d-grid">
                 <Button
                   title="从下面的歌单里随机挑一首"
-                  className={styles.customRandomButton}
+                  className={styles.RandomSongButton}
                   onClick={handleRandomSongWithFilter}
                 >
                   随便听听
@@ -387,7 +382,26 @@ export default function Home() {
         <footer className={styles.footer}>
           <div>{config.Footer}</div>
           <div>Update Date: {config.UpdateDate}</div>
-          <div>
+          <a
+            href="https://beian.miit.gov.cn/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: 'black',
+              textDecoration: 'none',
+              cursor: 'url("./assets/cursor/pointer.png"), pointer',
+            }}
+          >
+            {config.ICP}
+          </a>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+            <img 
+              src="/assets/images/beian.png" 
+              style={{ 
+                display: 'inline-block',
+                width: '20px',
+              }}
+            />
             <a
               href="https://beian.miit.gov.cn/"
               target="_blank"
@@ -398,7 +412,7 @@ export default function Home() {
                 cursor: 'url("./assets/cursor/pointer.png"), pointer',
               }}
             >
-              {config.ICP}
+              {config.beian}
             </a>
           </div>
         </footer>
